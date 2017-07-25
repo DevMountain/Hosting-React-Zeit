@@ -10,34 +10,6 @@
 * Click `Save Changes`.
 * Keep the page open, we'll need the `domain`, `client id`, and `secret` later.
 
-## Create the auth0 strategy
-* `cd` into `private/` and create a `strategy.js` file.
-* Require the `passport-auth0` strategy in a variable called Auth0Strategy.
-* Require `config.js` in a variable called `config`.
-* Use `module.exports` to export a new Auth0Strategy.
-  * <details>
-  
-    <summary> <code> Syntax </code> </summary>
-    
-    ```js
-    module.exports = new Auth0Strategy({
-      domain:       '...',
-      clientID:     '...',
-      clientSecret: '...',
-      callbackURL:  '/login'
-      },
-      function(accessToken, refreshToken, extraParams, profile, done) {
-        // accessToken is the token to call Auth0 API (not needed in the most cases)
-        // extraParams.id_token has the JSON Web Token
-        // profile has all the information from the user
-        return done(null, profile);
-      }
-    );
-    ```
-    
-    </details>
-* Modify the `domain`, `clientID`, and `clientSecret` to use the value from your `config.js` file.
-
 ## Create a config.js
 * `cd` into `private/` and create a `config.js` file.
 * Use `module.exports` to export an object with the following properties:
