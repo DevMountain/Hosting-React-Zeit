@@ -13,7 +13,7 @@ module.exports = {
     if ( !req.session.user ) {
       res.status(200).send( false );
     } else {
-      res.status(200).send( req.user );
+      res.status(200).send( req.session.user );
     }
   }
 }
