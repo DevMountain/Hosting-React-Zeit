@@ -5,8 +5,9 @@ class Dashboard extends Component {
   componentDidMount() {
     const { user, history } = this.props;
 
+    console.log('user:', user);
     if ( user === null ) {
-      history.push('/login');
+      history.push('/auth');
     }
   }
 

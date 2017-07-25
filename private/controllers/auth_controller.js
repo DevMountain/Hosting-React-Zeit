@@ -6,7 +6,11 @@ module.exports = {
       req.session.user = req.user;
     }
 
-    res.redirect('http://localhost:3001/login');
+    if ( process.env.ENV === "development" ) {
+      res.redirect('http://localhost:3001/auth');
+    } else if ( process.env.ENV === "production" ) {
+      res.redirect('http://localhost:3000/auth')
+    }
   },
 
   sendUserToClient: ( req, res, next ) => {

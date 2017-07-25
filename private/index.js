@@ -25,5 +25,5 @@ passport.deserializeUser( (obj, done) => done(null, obj) );
 app.use(`/api/auth`, require(`${__dirname}/routes/auth_router.js`));
 
 const port = 3000;
-app.listen( port, () => { console.log('Server listening on port 3000.'); } );
+app.listen( port, () => { console.log(`Server listening on port 3000.\nMode: ${process.env.ENV}`); } );
 

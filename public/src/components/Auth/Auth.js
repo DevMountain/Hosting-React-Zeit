@@ -10,13 +10,13 @@ class Login extends Component {
     const { setUser, user, history } = this.props;
 
     if ( user !== null ) {
-      history.push('/dashboard');
+      history.push('/');
     } else {
       axios.get( api.authenticated ).then( response => {
         if ( response.data ) {
           // User is authenticated
           setUser( response.data );
-          history.push('/dashboard');
+          history.push('/');
         }
       });
     }
@@ -25,7 +25,7 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <a href={ `http://localhost:3000${api.login}` }>Login</a>
+        <a href={ `http://localhost:3000${api.login}` }>Login/Register</a>
       </div>
     )
   }
