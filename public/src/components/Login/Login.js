@@ -1,27 +1,34 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { setUser } from '../../ducks/reducer';
+import { connect } from "react-redux";
 
-export default class Login extends Component {
-  constructor() {
-    super();
+import api from "../../api";
 
-    this.state = {
-      test: null
-    };
-  }
-
+class Login extends Component {
   componentDidMount() {
-    axios.get('/api/auth/login').then( response => {
-      console.log( response );
-      this.setState({ test: response.data });
-    });
+    const { setUser, user, history } = this.props;
+
+    if ( user !== null ) {
+      history.push('/dashboard');
+    } else {
+      axios.get( api.authenticated ).then( response => {
+        if ( response.data ) {
+          // User is authenticated
+          setUser( response.data );
+          history.push('/dashboard');
+        }
+      });
+    }
   }
 
   render() {
     return (
       <div>
-        { this.state.test }
+        <a href={ `http://localhost:3000${api.login}` }>Login</a>
       </div>
     )
   }
 }
+
+export default connect( state => state, { setUser } )( Login );

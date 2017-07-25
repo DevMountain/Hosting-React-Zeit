@@ -5,7 +5,7 @@ module.exports = new Auth0Strategy({
   domain:       config.domain,
   clientID:     config.id,
   clientSecret: config.secret,
-  callbackURL:  '/login'
+  callbackURL:  '/api/auth/login'
   },
   function(accessToken, refreshToken, extraParams, profile, done) {
     // accessToken is the token to call Auth0 API (not needed in the most cases)

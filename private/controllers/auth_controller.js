@@ -1,15 +1,17 @@
 const passport = require('passport');
 
 module.exports = {
-  login: ( req, res, next ) => {
-    console.log('Login was hit');
-    
+  setUser: ( req, res, next ) => {
+    if ( req.user && !req.session.user ) {
+      req.session.user = req.user;
+    }
+
+    res.redirect('http://localhost:3001/login');
   },
 
   sendUserToClient: ( req, res, next ) => {
-    console.log('Send User to Client was hit');
-    if ( !req.user ) {
-      res.redirect('/api/login');
+    if ( !req.session.user ) {
+      res.status(200).send( false );
     } else {
       res.status(200).send( req.user );
     }
