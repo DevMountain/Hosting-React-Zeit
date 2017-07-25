@@ -18,16 +18,16 @@
   * `secret`: This should equal your `Client Secret` from `Auth0`.
 
 ## Create the database
-
-
+* `cd` into `private/db/`.
+* Copy and paste the SQL statements from `initialize_db.sql` to get a working local database.
 
 ## Developer Mode
-`cd` into `public/` and run `npm install`.
-`cd` into `private/` and run `npm install`.
-Run `nodemon` to start the API.
-`cd` into `public/` and run `npm start` to start the development server. 
+* `cd` into `public/` and run `npm install`.
+* `cd` into `private/` and run `npm install`.
+* `cd` into `private/` and run `npm run dev` to start the API in developer mode.
+* `cd` into `public/` and run `npm start` to start the development server. 
 
 ## Production Mode
-`cd` into `private/` and run `npm install`.
-Run `nodemon`.
-Go to `http://localhost:3000/` in your browser.
+* `cd` into `private/` and run `npm install`.
+* Then run `npm run prod` to start the API in production mode.
+* Go to `http://localhost:3000/` in your browser.
