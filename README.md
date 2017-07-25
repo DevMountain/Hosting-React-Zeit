@@ -21,7 +21,7 @@
 * `cd` into `private/db/`.
 * Copy and paste the SQL statements from `initialize_db.sql` to get a working local database.
 * Dump the data from `mock_data.sql` into your `users` table by running:
-  * -- psql nameTBD < private/db/mock_data.sql
+  * `psql nameTBD < private/db/mock_data.sql`
 
 ## Developer Mode
 * `cd` into `public/` and run `npm install`.
