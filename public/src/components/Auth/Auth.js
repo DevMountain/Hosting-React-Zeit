@@ -9,9 +9,7 @@ class Login extends Component {
   componentDidMount() {
     const { setUser, user, history } = this.props;
 
-    if ( user !== null ) {
-      history.push('/');
-    } else {
+    if ( user === null ) {
       axios.get( api.authenticated ).then( response => {
         if ( response.data ) {
           // User is authenticated

@@ -2,6 +2,7 @@ const passport = require('passport');
 
 module.exports = {
   setUser: ( req, res, next ) => {
+    console.log('Inside setUser:', req.user);
     if ( req.user && !req.session.user ) {
       req.session.user = req.user;
     }

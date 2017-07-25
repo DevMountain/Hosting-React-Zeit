@@ -24,9 +24,19 @@ passport.use( strategy );
 
 passport.serializeUser( (user, done) => done(null, { id: user.id, picture: user.picture }) );
 passport.deserializeUser( (obj, done) => {
-  // See if the user is in the database and grab their information
-  // If the user is not in the database, add them in
-  done(null, obj);
+  const db = app.get('db');
+
+  db.users.find_user([ obj.id ]).then( response => {
+    if ( response.length === 1 ) {
+      // User is in the database
+      done(null, response[0]);
+    } else if ( response.length === 0 ) {
+      // User is not in the database - Add them in
+      db.users.add_user([ obj.id, obj.picture ]).then( response => {
+        done(null, response[0]);
+      });
+    }
+  });
 });
 
 // Routes

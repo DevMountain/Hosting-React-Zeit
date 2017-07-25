@@ -1,13 +1,24 @@
 import React, { Component } from "react";
+import axios from "axios";
+import api from '../../api';
 import { connect } from "react-redux";
+import { setUser } from "../../ducks/reducer";
 
 class Dashboard extends Component {
   componentDidMount() {
     const { user, history } = this.props;
 
-    console.log('user:', user);
     if ( user === null ) {
-      history.push('/auth');
+      axios.get( api.authenticated ).then( response => {
+        if ( response.data ) {
+          // User is authenticated
+          console.log('User:', response.data);
+          setUser( response.data );
+        } else {
+          // User is not authenticated
+          history.push('/auth');
+        }
+      });
     }
   }
 
@@ -20,4 +31,4 @@ class Dashboard extends Component {
   }
 }
 
-export default connect( state => state, {} )( Dashboard );
+export default connect( state => state, { setUser } )( Dashboard );
