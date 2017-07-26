@@ -20,5 +20,10 @@ module.exports = {
     } else {
       res.status(200).send( req.session.user );
     }
+  },
+
+  logout: ( req, res, next ) => {
+    req.session.destroy();
+    res.status(200).send();
   }
-}
+};

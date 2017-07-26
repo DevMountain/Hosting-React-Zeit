@@ -14,7 +14,13 @@ class Login extends Component {
         if ( response.data ) {
           // User is authenticated
           setUser( response.data );
-          history.push('/');
+          // User logged in for the first time:
+          if ( !response.data.first ) {
+            history.push('/profile');
+          } else {
+            // User has logged in before and setup their profile:
+            history.push('/');
+          }
         }
       });
     }

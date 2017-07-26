@@ -1,14 +1,18 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React from "react";
+import { Link } from "react-router-dom";
 
-class User extends Component {
-  render() {
-    return (
-      <div>
-        User
+export default function User( { logout, history } ) {
+  return (
+    <div>
+      <Link to="/profile">
+        <div>
+          User Icon Here | User Name Here
+        </div>
+      </Link>
+
+      <div onClick={ () => logout( history ) }>
+        Logout
       </div>
-    )
-  }
+    </div>
+  )
 }
-
-export default connect( state => state, {} )( User );

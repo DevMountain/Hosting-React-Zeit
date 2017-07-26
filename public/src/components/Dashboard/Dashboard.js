@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import api from '../../api';
 import { connect } from "react-redux";
-import { setUser } from "../../ducks/reducer";
+import { setUser, logout } from "../../ducks/reducer";
 
 import User from './User/User';
 
@@ -25,13 +25,14 @@ class Dashboard extends Component {
   }
 
   render() {
+    const { logout, history } = this.props;
     return (
       <div >
         Dashboard
-        <User />
+        <User logout={ logout } history={ history } />
       </div>
     )
   }
 }
 
-export default connect( state => state, { setUser } )( Dashboard );
+export default connect( state => state, { setUser, logout } )( Dashboard );
