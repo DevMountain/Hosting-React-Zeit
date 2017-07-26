@@ -10,12 +10,40 @@ class Profile extends Component {
     if ( user === null ) authenticated( history );
   }
 
-  constructor() {
-    super();
-    this.state = {};
+  componentWillReceiveProps( { user } ) {
+    if ( user !== null ) {
+      user.birthday = "1997-03-26";
+      for( var i in user ) {
+        this.setState({ [i]: user[i] || "" });
+      }
+
+      if ( user.birthday ) {
+        this.setState({ b_month: user.birthday.slice(5, 7) || "", 
+                        b_day: user.birthday.slice(8, 11) || "", 
+                        b_year: user.birthday.slice(0, 4) || ""
+        });
+      }
+    }
+  }
+
+  constructor( props ) {
+    super( props );
+    this.state = {
+      first: "",
+      last: "",
+      birthday: "",
+      e_color: "",
+      h_color: "",
+      gender: "",
+      hobby: "",
+      b_month: "",
+      b_day:  "", 
+      b_year: ""
+    };
 
     this.updateProfile = this.updateProfile.bind( this );
     this.cancel = this.cancel.bind( this );
+    this.updateState = this.updateState.bind( this );
   }
 
   updateProfile() {
@@ -26,25 +54,32 @@ class Profile extends Component {
 
   }
 
+  updateState( prop, val ) {
+    this.setState({ [prop]: val });
+  }
+
   render() {
     const months = GPDD.months;
     const days = GPDD.days;
     const years = GPDD.years;
+    console.log('USER ON STATE', this.state );
 
     return (
       <div>
         <div>
           <div>
-            First Name: <input />
+            First Name: 
+            <input value={ this.state.first } />
           </div>
 
           <div>
-            Last Name: <input />
+            Last Name: 
+            <input value={ this.state.last } />
           </div>
 
           <div>
             Gender: 
-            <select defaultValue="">
+            <select value={ this.state.gender }>
               <option disabled value=""> -- Select -- </option>
               <option> Male </option>
               <option> Female </option>
@@ -53,7 +88,7 @@ class Profile extends Component {
 
           <div>
             Hobby:
-            <select defaultValue="">
+            <select value={ this.state.hobby }>
               <option disabled value=""> -- Select -- </option>
               <option> Hobby #1 </option>
               <option> Hobby #2 </option>
@@ -64,7 +99,7 @@ class Profile extends Component {
 
           <div>
             Hair Color:
-            <select defaultValue="">
+            <select value={ this.state.h_color }>
               <option disabled value=""> -- Select -- </option>
               <option> Brown </option>
               <option> Blue </option>
@@ -77,7 +112,7 @@ class Profile extends Component {
 
           <div>
             Eye Color:
-            <select defaultValue="">
+            <select value={ this.state.e_color }>
               <option disabled value=""> -- Select -- </option>
               <option> Brown </option>
               <option> Blue </option>
@@ -87,7 +122,7 @@ class Profile extends Component {
 
           <div>
             Birthday Month ( MM ):
-            <select defaultValue="">
+            <select value={ this.state.b_month }>
               <option disabled value=""> -- Select -- </option>
               {
                 months.map( ( month, i ) => {
@@ -109,7 +144,7 @@ class Profile extends Component {
 
           <div>
             Birthday Day ( DD ):
-            <select defaultValue="">
+            <select value={ this.state.b_day }>
               <option value=""> -- Select -- </option>
               {
                 days.map( day => (
@@ -121,7 +156,7 @@ class Profile extends Component {
 
           <div>
             Birthday Year ( YYYY ):
-            <select defaultValue="">
+            <select value={ this.state.b_year }>
               <option value=""> -- Select -- </option>
               {
                 years.map( year => (
