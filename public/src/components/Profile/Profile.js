@@ -51,11 +51,33 @@ class Profile extends Component {
   }
 
   cancel() {
+    const { user } = this.props;
 
+    if ( user !== null ) {
+      user.birthday = "1997-03-26";
+      for( var i in user ) {
+        this.setState({ [i]: user[i] || "" });
+      }
+
+      if ( user.birthday ) {
+        this.setState({ b_month: user.birthday.slice(5, 7) || "", 
+                        b_day: user.birthday.slice(8, 11) || "", 
+                        b_year: user.birthday.slice(0, 4) || ""
+        });
+      }
+    }
   }
 
   updateState( prop, val ) {
     this.setState({ [prop]: val });
+
+    if ( prop === "b_month" || prop === "b_day" || prop === "b_year" ) {
+      const { b_month, b_day, b_year } = this.state;
+      let temp = { b_month, b_day, b_year };
+      temp[ prop ] = val;
+
+      this.setState({ birthday: [ temp.b_month, temp.b_day, temp.b_year ].join('-') });
+    }
   }
 
   render() {
@@ -69,60 +91,60 @@ class Profile extends Component {
         <div>
           <div>
             First Name: 
-            <input value={ this.state.first } />
+            <input value={ this.state.first } onChange={ ( e ) => this.updateState( 'first', e.target.value ) } />
           </div>
 
           <div>
             Last Name: 
-            <input value={ this.state.last } />
+            <input value={ this.state.last } onChange={ ( e ) => this.updateState( 'last', e.target.value ) } />
           </div>
 
           <div>
             Gender: 
-            <select value={ this.state.gender }>
+            <select value={ this.state.gender } onChange={ ( e ) => this.updateState( 'gender', e.target.value ) } >
               <option disabled value=""> -- Select -- </option>
-              <option> Male </option>
-              <option> Female </option>
+              <option value="Male"> Male </option>
+              <option value="Female"> Female </option>
             </select>
           </div>
 
           <div>
             Hobby:
-            <select value={ this.state.hobby }>
+            <select value={ this.state.hobby } onChange={ ( e ) => this.updateState( 'hobby', e.target.value ) } >
               <option disabled value=""> -- Select -- </option>
-              <option> Hobby #1 </option>
-              <option> Hobby #2 </option>
-              <option> Hobby #3 </option>
-              <option> Hobby #4 </option>
+              <option value="Hobby #1"> Hobby #1 </option>
+              <option value="Hobby #2"> Hobby #2 </option>
+              <option value="Hobby #3"> Hobby #3 </option>
+              <option value="Hobby #4"> Hobby #4 </option>
             </select>
           </div>
 
           <div>
             Hair Color:
-            <select value={ this.state.h_color }>
+            <select value={ this.state.h_color } onChange={ ( e ) => this.updateState( 'h_color', e.target.value ) } >
               <option disabled value=""> -- Select -- </option>
-              <option> Brown </option>
-              <option> Blue </option>
-              <option> Green </option>
-              <option> Red </option>
-              <option> Blonde </option>
-              <option> White </option>
+              <option value="Brown"> Brown </option>
+              <option value="Red"> Blue </option>
+              <option value="Green"> Green </option>
+              <option value="Red"> Red </option>
+              <option value="Blonde"> Blonde </option>
+              <option value="White"> White </option>
             </select>
           </div>
 
           <div>
             Eye Color:
-            <select value={ this.state.e_color }>
+            <select value={ this.state.e_color } onChange={ ( e ) => this.updateState( 'e_color', e.target.value ) } >
               <option disabled value=""> -- Select -- </option>
-              <option> Brown </option>
-              <option> Blue </option>
-              <option> Green </option>
+              <option value="Brown"> Brown </option>
+              <option value="Blue"> Blue </option>
+              <option value="Green"> Green </option>
             </select>
           </div>
 
           <div>
             Birthday Month ( MM ):
-            <select value={ this.state.b_month }>
+            <select value={ this.state.b_month } onChange={ ( e ) => this.updateState( 'b_month', e.target.value ) } >
               <option disabled value=""> -- Select -- </option>
               {
                 months.map( ( month, i ) => {
@@ -144,7 +166,7 @@ class Profile extends Component {
 
           <div>
             Birthday Day ( DD ):
-            <select value={ this.state.b_day }>
+            <select value={ this.state.b_day } onChange={ ( e ) => this.updateState( 'b_day', e.target.value ) } >
               <option value=""> -- Select -- </option>
               {
                 days.map( day => (
@@ -156,7 +178,7 @@ class Profile extends Component {
 
           <div>
             Birthday Year ( YYYY ):
-            <select value={ this.state.b_year }>
+            <select value={ this.state.b_year } onChange={ ( e ) => this.updateState( 'b_year', e.target.value ) } >
               <option value=""> -- Select -- </option>
               {
                 years.map( year => (
@@ -168,7 +190,7 @@ class Profile extends Component {
 
           <div>
             <button> Update </button>
-            <button> Cancel </button>
+            <button onClick={ this.cancel }> Cancel </button>
           </div>
         </div>
       </div>
