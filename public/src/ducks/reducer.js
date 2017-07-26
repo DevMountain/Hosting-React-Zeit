@@ -7,6 +7,7 @@ const initialState = {
 
 const LOGOUT = "LOGOUT";
 const AUTHENTICATED = "AUTHENTICATED";
+const PATCH_USER = "PATCH_USER";
 
 export default ( state = initialState, action ) => {
   console.log('Action:', action);
@@ -19,6 +20,10 @@ export default ( state = initialState, action ) => {
       return Object.assign( {}, this.state, { user: null } );
 
     case AUTHENTICATED + '_FULFILLED':
+      return Object.assign( {}, this.state, { user: payload } );
+
+    case PATCH_USER + '_FULFILLED':
+      console.log('PATCH_USER:', payload);
       return Object.assign( {}, this.state, { user: payload } );
 
     default: return state;
@@ -47,6 +52,15 @@ export function authenticated( history, optionalSuccessRedirect ) {
 
   return {
     type: AUTHENTICATED,
+    payload: promise
+  };
+}
+
+export function patchUser( obj ) {
+  const promise = axios.post( `${api.patchUser}/${obj.id}`, obj ).then( response => response.data );
+
+  return {
+    type: PATCH_USER,
     payload: promise
   };
 }

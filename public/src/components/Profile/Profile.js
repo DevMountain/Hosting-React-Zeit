@@ -1,34 +1,39 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { authenticated } from '../../ducks/reducer';
+import { authenticated, patchUser } from '../../ducks/reducer';
 
 import GPDD from '../../utils/GenerateProfileDropDowns';
 
 class Profile extends Component {
-  componentDidMount() {
-    const { user, history, authenticated } = this.props;
-    if ( user === null ) authenticated( history );
-  }
-
-  componentWillReceiveProps( { user } ) {
+  formatPropsToState( user ) {
     if ( user !== null ) {
-      user.birthday = "1997-03-26";
       for( var i in user ) {
         this.setState({ [i]: user[i] || "" });
       }
 
       if ( user.birthday ) {
         this.setState({ b_month: user.birthday.slice(5, 7) || "", 
-                        b_day: user.birthday.slice(8, 11) || "", 
+                        b_day: user.birthday.slice(8, 10) || "", 
                         b_year: user.birthday.slice(0, 4) || ""
         });
       }
     }
   }
 
+  componentDidMount() {
+    const { user, history, authenticated } = this.props;
+    if ( user === null ) authenticated( history );
+    this.formatPropsToState( user );
+  }
+
+  componentWillReceiveProps( { user } ) {
+    this.formatPropsToState( user );
+  }
+
   constructor( props ) {
     super( props );
     this.state = {
+      id: "",
       first: "",
       last: "",
       birthday: "",
@@ -44,28 +49,18 @@ class Profile extends Component {
     this.updateProfile = this.updateProfile.bind( this );
     this.cancel = this.cancel.bind( this );
     this.updateState = this.updateState.bind( this );
+    this.formatPropsToState = this.formatPropsToState.bind( this );
   }
 
   updateProfile() {
-
+    const { patchUser } = this.props;
+    const { id, first, last, birthday, e_color, h_color, gender, hobby } = this.state;
+    patchUser({ id, first, last, birthday, e_color, h_color, gender, hobby });
   }
 
   cancel() {
     const { user } = this.props;
-
-    if ( user !== null ) {
-      user.birthday = "1997-03-26";
-      for( var i in user ) {
-        this.setState({ [i]: user[i] || "" });
-      }
-
-      if ( user.birthday ) {
-        this.setState({ b_month: user.birthday.slice(5, 7) || "", 
-                        b_day: user.birthday.slice(8, 11) || "", 
-                        b_year: user.birthday.slice(0, 4) || ""
-        });
-      }
-    }
+    this.formatPropsToState( user );
   }
 
   updateState( prop, val ) {
@@ -76,7 +71,7 @@ class Profile extends Component {
       let temp = { b_month, b_day, b_year };
       temp[ prop ] = val;
 
-      this.setState({ birthday: [ temp.b_month, temp.b_day, temp.b_year ].join('-') });
+      this.setState({ birthday: [ temp.b_year, temp.b_month, temp.b_day ].join('-') });
     }
   }
 
@@ -189,7 +184,7 @@ class Profile extends Component {
           </div>
 
           <div>
-            <button> Update </button>
+            <button onClick={ this.updateProfile }> Update </button>
             <button onClick={ this.cancel }> Cancel </button>
           </div>
         </div>
@@ -198,4 +193,4 @@ class Profile extends Component {
   }
 }
 
-export default connect( state => state, { authenticated } )( Profile );
+export default connect( state => state, { authenticated, patchUser } )( Profile );

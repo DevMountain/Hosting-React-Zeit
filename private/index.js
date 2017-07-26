@@ -18,6 +18,7 @@ app.use(session({
   saveUninitialized: false
 }));
 
+app.use( bodyParser.json() );
 app.use( passport.initialize() );
 app.use( passport.session() );
 passport.use( strategy );
@@ -41,6 +42,7 @@ passport.deserializeUser( (obj, done) => {
 
 // Routes
 app.use(`/api/auth`, require(`${__dirname}/routes/auth_router.js`));
+app.use(`/api/user`, require(`${__dirname}/routes/user_router.js`));
 
 const port = 3000;
 app.listen( port, () => { console.log(`Server listening on port 3000.\nMode: ${process.env.ENV}`); } );
