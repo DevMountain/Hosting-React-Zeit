@@ -80,7 +80,6 @@ class Profile extends Component {
     const months = GPDD.months;
     const days = GPDD.days;
     const years = GPDD.years;
-    console.log('USER ON STATE', this.state );
 
     return (
       <div>

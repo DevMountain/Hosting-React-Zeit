@@ -23,7 +23,6 @@ export default ( state = initialState, action ) => {
       return Object.assign( {}, this.state, { user: payload } );
 
     case PATCH_USER + '_FULFILLED':
-      console.log('PATCH_USER:', payload);
       return Object.assign( {}, this.state, { user: payload } );
 
     default: return state;
