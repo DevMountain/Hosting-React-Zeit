@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
-import api from '../../api';
 import { connect } from "react-redux";
 import { logout, authenticated } from "../../ducks/reducer";
 

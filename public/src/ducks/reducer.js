@@ -19,7 +19,6 @@ export default ( state = initialState, action ) => {
       return Object.assign( {}, this.state, { user: null } );
 
     case AUTHENTICATED + '_FULFILLED':
-      console.log('Inside AUTHENTICATED:', payload );
       return Object.assign( {}, this.state, { user: payload } );
 
     default: return state;
@@ -42,7 +41,7 @@ export function authenticated( history, optionalSuccessRedirect ) {
     } else if ( optionalSuccessRedirect ) {
       history.push( optionalSuccessRedirect );
     }
-    
+
     return response.data || null;
   });
 
