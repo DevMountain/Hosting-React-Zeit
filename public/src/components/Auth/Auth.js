@@ -8,7 +8,11 @@ import api from "../../api";
 class Login extends Component {
   componentDidMount() {
     const { authenticated, user, history } = this.props;
-    if ( user === null ) authenticated( history, '/' );
+    if ( user === null ) {
+      authenticated( history, '/' );
+    } else if ( user !== null ) {
+      history.push('/');
+    }
   }
 
   render() {

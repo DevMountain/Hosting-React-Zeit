@@ -18,7 +18,7 @@ module.exports = {
 
   sendUserToClient: ( req, res, next ) => {
     if ( !req.session.user ) {
-      // False is sent when a user is not authenticated for easy checking on the front-end
+      // False is sent when a user is not authenticated. This is for easy checking on the front-end
       res.status(200).send( false );
     } else {
       res.status(200).send( req.session.user );
