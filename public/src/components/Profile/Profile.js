@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { authenticated, patchUser } from '../../ducks/reducer';
+import { Link } from "react-router-dom";
 
 import GPDD from '../../utils/GenerateProfileDropDowns';
 
@@ -186,6 +187,9 @@ class Profile extends Component {
           <div>
             <button onClick={ this.updateProfile }> Update </button>
             <button onClick={ this.cancel }> Cancel </button>
+            <Link to="/">
+              <button> Back to Dashboard </button>
+            </Link>
           </div>
         </div>
       </div>
