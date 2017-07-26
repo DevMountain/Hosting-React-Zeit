@@ -2,12 +2,14 @@ import axios from "axios";
 import api from "../api";
 
 const initialState = {
-  user: null
+  user: null,
+  people: []
 };
 
 const LOGOUT = "LOGOUT";
 const AUTHENTICATED = "AUTHENTICATED";
 const PATCH_USER = "PATCH_USER";
+const GET_PEOPLE = "GET_PEOPLE";
 
 export default ( state = initialState, action ) => {
   console.log('Action:', action);
@@ -24,6 +26,10 @@ export default ( state = initialState, action ) => {
 
     case PATCH_USER + '_FULFILLED':
       return Object.assign( {}, this.state, { user: payload } );
+
+    case GET_PEOPLE + '_FULFILLED':
+      console.log('Found people:', payload);
+      return Object.assign( {}, this.state, { people: payload });
 
     default: return state;
   }
@@ -60,6 +66,15 @@ export function patchUser( obj ) {
 
   return {
     type: PATCH_USER,
+    payload: promise
+  };
+}
+
+export function getPeople( id, page ) {
+  const promise = axios.get( `${api.userList}?page=${page}`, id ).then( response => response.data );
+
+  return {
+    type: GET_PEOPLE,
     payload: promise
   };
 }

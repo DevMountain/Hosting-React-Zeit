@@ -24,5 +24,14 @@ module.exports = {
         res.status(500).send(`No user found with id of: ${id}`);
       }
     }).catch( err => console.log(err) );
+  },
+
+  find: ( req, res, next ) => {
+    const db = req.app.get('db');
+    const offset = req.query.page * 25;
+    const { id } = req.body;
+
+    db.users.find_users([ id, offset ]).then( users => res.status(200).send(users) )
+      .catch( err => console.log(err) );
   }
 };
