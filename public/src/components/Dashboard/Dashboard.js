@@ -4,6 +4,8 @@ import api from '../../api';
 import { connect } from "react-redux";
 import { setUser } from "../../ducks/reducer";
 
+import User from './User/User';
+
 class Dashboard extends Component {
   componentDidMount() {
     const { user, history } = this.props;
@@ -24,8 +26,9 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div>
+      <div >
         Dashboard
+        <User />
       </div>
     )
   }

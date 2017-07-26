@@ -10,7 +10,9 @@ CREATE TABLE users (
   h_color TEXT,
   e_color TEXT,
   hobby TEXT,
-  gender TEXT
+  gender TEXT,
+  first TEXT,
+  last TEXT
 );
 
 CREATE TABLE friends (
