@@ -1,7 +1,7 @@
-CREATE DATABASE nameTBD;
+CREATE DATABASE nametdb;
 
 -- Run this terminal command to connect to the database:
--- \c nameTBD;
+-- \c nametdb;
 
 CREATE TABLE users (
   id TEXT not null UNIQUE,

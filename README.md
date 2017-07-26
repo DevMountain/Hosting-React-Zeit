@@ -21,8 +21,8 @@
 * `cd` into `private/db/`.
 * Copy and paste the SQL statements from `initialize_db.sql` to get a working local database.
 * Dump the data from `mock_data.sql` into your `users` table by running:
-  * `psql nameTBD < private/db/mock_data.sql`
-* Open `private/config.js` and add a `connectionString` property that connects to the `nameTBD` database.
+  * `psql nametbd < private/db/mock_data.sql`
+* Open `private/config.js` and add a `connectionString` property that connects to the `nametbd` database.
     * `postgres://username:password@localhost/nametbd`
 
 ## Developer Mode
