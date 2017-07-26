@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logout, authenticated } from "../../ducks/reducer";
+import { Link } from "react-router-dom";
 
 import User from './User/User';
 
@@ -16,6 +17,9 @@ class Dashboard extends Component {
       <div >
         Dashboard
         <User logout={ logout } history={ history } />
+        <Link to="/search">
+          Search for new friends
+        </Link>
       </div>
     )
   }
