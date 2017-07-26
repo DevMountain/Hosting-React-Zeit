@@ -29,8 +29,8 @@ export default ( state = initialState, action ) => {
   }
 };
 
-export function logout( history ) {
-  const promise = axios.post( api.logout ).then( () => history.push('/auth') );
+export function logout() {
+  const promise = axios.post( api.logout ).then( () => null );
 
   return {
     type: LOGOUT,

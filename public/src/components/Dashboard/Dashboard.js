@@ -11,6 +11,13 @@ class Dashboard extends Component {
     if ( user === null ) authenticated( history );
   }
 
+  componentWillReceiveProps( nextProps ) {
+    const { history } = this.props;
+    if ( nextProps.user === null && this.props.user !== null ) {
+      history.push('/auth');
+    }
+  }
+
   render() {
     const { logout, history } = this.props;
     return (
