@@ -1,3 +1,14 @@
+function calcAvailablePages( count ) {
+  let temp = count > 25 ? Math.ceil( count / 25 ) : 1;
+  let availablePages = [];
+
+  for( var i = 0; i < temp; i++ ) {
+    availablePages.push( i.toString() );
+  }
+
+  return availablePages;
+}
+
 module.exports = {
   patch: ( req, res, next ) => {
     const db = req.app.get('db');
@@ -33,12 +44,7 @@ module.exports = {
 
     db.users.count_users([ id ]).then( result => {
       const count = result[0].count;
-      let temp = count > 25 ? Math.ceil( count / 25 ) : 1;
-      let availablePages = [];
-
-      for( var i = 0; i < temp; i++ ) {
-        availablePages.push( i.toString() );
-      }
+      let availablePages = calcAvailablePages( count );
 
       db.users.find_users([ id, offset ]).then( users => res.status(200).send({ users, count, availablePages }) )
         .catch( err => console.log(err) );
@@ -47,6 +53,23 @@ module.exports = {
 
   search: ( req, res, next ) => {
     const db = req.app.get('db');
-    
+    const { filter, name } = req.query;
+
+    switch( filter ) {
+      case 'first':
+        db.users.search_user_first([ name.toLowerCase() ]).then( users => {
+          let availablePages = calcAvailablePages( users.length );
+          res.status(200).send({ users, count: users.length, availablePages });
+        }).catch( err => console.log(err) );
+
+        break;
+      case 'last':
+        db.users.search_user_last([ name.toLowerCase() ]).then( users => {
+          let availablePages = calcAvailablePages( users.length );
+          res.status(200).send({ users, count: users.length, availablePages });
+        }).catch( err => console.log( err ) );
+
+        break;
+    }
   }
 };

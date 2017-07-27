@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getPeople, authenticated } from '../../ducks/reducer';
+import { getPeople, authenticated, searchPeople } from '../../ducks/reducer';
 
 import User from './User/User';
 import Pagination from './Pagination/Pagination';
@@ -43,6 +43,8 @@ class Search extends Component {
     };
 
     this.updateState = this.updateState.bind( this );
+    this.search = this.search.bind( this );
+    this.reset = this.reset.bind( this );
   }
 
   updateState( prop, val ) {
@@ -50,7 +52,16 @@ class Search extends Component {
   }
 
   search() {
+    const { searchPeople } = this.props;
+    const { searchBy, name } = this.state;
 
+    searchPeople( searchBy, name );
+  }
+
+  reset() {
+    const { getPeople, match, user } = this.props;
+    this.setState({ searchBy: 'first', name: '' });
+    getPeople( user.id, match.params.page );
   }
 
   render() {
@@ -67,9 +78,10 @@ class Search extends Component {
         <select value={ this.state.searchBy } onChange={ ( e ) => this.updateState( 'searchBy', e.target.value ) }>
           <option value="first"> First Name </option>
           <option value="last"> Last Name </option>
-          <option value="full"> Full Name </option>
         </select>
         <input value={ this.state.name } onChange={ ( e ) => this.updateState( 'name', e.target.value ) } />
+        <button onClick={ this.search }> Search </button>
+        <button onClick={ this.reset }> Reset </button>
         <br />
         <br />
         <br />
@@ -88,4 +100,4 @@ class Search extends Component {
   }
 }
 
-export default connect( state => state, { getPeople, authenticated } )( Search );
+export default connect( state => state, { getPeople, authenticated, searchPeople } )( Search );

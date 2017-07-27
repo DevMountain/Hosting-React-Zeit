@@ -12,6 +12,7 @@ const LOGOUT = "LOGOUT";
 const AUTHENTICATED = "AUTHENTICATED";
 const PATCH_USER = "PATCH_USER";
 const GET_PEOPLE = "GET_PEOPLE";
+const SEARCH_PEOPLE = "SEARCH_PEOPLE";
 
 export default ( state = initialState, action ) => {
   // console.log('Action:', action);
@@ -32,6 +33,10 @@ export default ( state = initialState, action ) => {
 
     case GET_PEOPLE + '_FULFILLED':
       console.log('Found people:', payload);
+      return Object.assign( {}, state, { people: payload.users, peopleCount: payload.count, pages: payload.availablePages });
+
+    case SEARCH_PEOPLE + '_FULFILLED':
+      console.log('Search completed:', payload);
       return Object.assign( {}, state, { people: payload.users, peopleCount: payload.count, pages: payload.availablePages });
 
     default: return state;
@@ -78,6 +83,15 @@ export function getPeople( id, page ) {
 
   return {
     type: GET_PEOPLE,
+    payload: promise
+  };
+}
+
+export function searchPeople( filter, name ) {
+  const promise = axios.get( `${api.searchUsers}?filter=${filter}&name=${name}` ).then( response => response.data );
+
+  return {
+    type: SEARCH_PEOPLE,
     payload: promise
   };
 }

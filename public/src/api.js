@@ -3,5 +3,6 @@ module.exports = {
   login: '/api/auth/login',
   logout: '/api/auth/logout',
   patchUser: '/api/user/patch',
-  userList: '/api/user/list'
+  userList: '/api/user/list',
+  searchUsers: '/api/user/search'
 };
