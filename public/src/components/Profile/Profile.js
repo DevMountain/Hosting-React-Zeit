@@ -138,7 +138,7 @@ class Profile extends Component {
           </div>
 
           <div>
-            Birthday Month ( MM ):
+            Birthday Month:
             <select value={ this.state.b_month } onChange={ ( e ) => this.updateState( 'b_month', e.target.value ) } >
               <option disabled value=""> -- Select -- </option>
               {
@@ -150,7 +150,7 @@ class Profile extends Component {
           </div>
 
           <div>
-            Birthday Day ( DD ):
+            Birthday Day:
             <select value={ this.state.b_day } onChange={ ( e ) => this.updateState( 'b_day', e.target.value ) } >
               <option value=""> -- Select -- </option>
               {
@@ -162,7 +162,7 @@ class Profile extends Component {
           </div>
 
           <div>
-            Birthday Year ( YYYY ):
+            Birthday Year:
             <select value={ this.state.b_year } onChange={ ( e ) => this.updateState( 'b_year', e.target.value ) } >
               <option value=""> -- Select -- </option>
               {
