@@ -2,7 +2,7 @@ import React from "react";
 
 import './User.css';
 
-export default function User({ id, first, last, picture, friended }) {
+export default function User({ person_id, user_id, first, last, picture, friended, add, remove }) {
   return (
     <div id="Search__user">
       <img src={ picture } />
@@ -10,9 +10,9 @@ export default function User({ id, first, last, picture, friended }) {
       {
         friended
         ?
-          <button> Remove Friend </button>
+          <button onClick={ () => remove( user_id, person_id ) }> Remove Friend </button>
         :
-          <button> Add Friend </button>
+          <button onClick={ () => add( user_id, person_id) }> Add Friend </button>
       }
     </div>
   )

@@ -2,7 +2,7 @@ function formatIDs( arr ) {
   let friends = [];
 
   for( var i = 0; i < arr.length; i++ ) {
-    friends.push( ids[i].friend_id );
+    friends.push( arr[i].friend_id );
   }
 
   return friends;

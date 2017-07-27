@@ -69,14 +69,18 @@ class Search extends Component {
 
   render() {
     const { friends } = this.state;
+    const { addFriend, removeFriend, user } = this.props;
 
     const UserComponents = this.state.people.map( person => (
       <User key={ person.id } 
-            id={ person.id } 
+            person_id={ person.id } 
+            user_id={ user.id }
             picture={ person.picture } 
             first={ person.first } 
             last={ person.last } 
-            friended={ friends.indexOf(person.id) !== -1 ? true : false } />
+            friended={ friends.indexOf(person.id) !== -1 ? true : false }
+            add={ addFriend }
+            remove={ removeFriend } />
     ));
 
     const PaginationComponents = this.state.pages.map( page => (
