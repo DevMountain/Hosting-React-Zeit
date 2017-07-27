@@ -142,19 +142,9 @@ class Profile extends Component {
             <select value={ this.state.b_month } onChange={ ( e ) => this.updateState( 'b_month', e.target.value ) } >
               <option disabled value=""> -- Select -- </option>
               {
-                months.map( ( month, i ) => {
-                  var value = i + 1;
-
-                  if ( value < 10 ) {
-                    value = '0' + value;
-                  } else {
-                    value = '' + value;
-                  }
-
-                  return (
-                    <option key={ value } value={ value }> { month } </option>
-                  )
-                })
+                months.map( month => (
+                    <option key={ month.value } value={ month.value }> { month.label } </option>
+                ))
               }
             </select>
           </div>
