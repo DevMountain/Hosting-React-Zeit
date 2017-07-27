@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getPeople, authenticated, searchPeople } from '../../ducks/reducer';
+import { getPeople, authenticated, searchPeople, getFriends, addFriend, removeFriend } from '../../ducks/reducer';
 
 import User from './User/User';
 import Pagination from './Pagination/Pagination';
@@ -9,27 +9,29 @@ import './Search.css';
 
 class Search extends Component {
   componentDidMount() {
-    const { getPeople, user, history, authenticated, match } = this.props;
+    const { getPeople, user, history, authenticated, match, getFriends } = this.props;
 
     if ( user === null ) {
       authenticated( history );
     } else {
       console.log('USER FOUND:', user);
       getPeople( user.id, match.params.page );
+      getFriends( user.id );
     }
   }
 
   componentWillReceiveProps( nextProps ) {
-    const { getPeople, history, match } = this.props;
+    const { getPeople, history, match, getFriends } = this.props;
 
     if ( nextProps.user !== null && this.props.user === null ) {
       getPeople( nextProps.user.id, match.params.page );
+      getFriends( nextProps.user.id );
     } else if ( nextProps.user !== null && this.props.user !== null ) {
       if ( match.params.page !== nextProps.match.params.page ) {
         getPeople( nextProps.user.id, nextProps.match.params.page );
       }
 
-      this.setState({ people: nextProps.people, pages: nextProps.pages });
+      this.setState({ people: nextProps.people, pages: nextProps.pages, friends: nextProps.friends });
     }
   }
 
@@ -39,7 +41,8 @@ class Search extends Component {
       searchBy: 'first',
       name: '',
       people: [],
-      pages: []
+      pages: [],
+      friends: []
     };
 
     this.updateState = this.updateState.bind( this );
@@ -65,8 +68,15 @@ class Search extends Component {
   }
 
   render() {
+    const { friends } = this.state;
+
     const UserComponents = this.state.people.map( person => (
-      <User key={ person.id } id={ person.id } picture={ person.picture } first={ person.first } last={ person.last } />
+      <User key={ person.id } 
+            id={ person.id } 
+            picture={ person.picture } 
+            first={ person.first } 
+            last={ person.last } 
+            friended={ friends.indexOf(person.id) !== -1 ? true : false } />
     ));
 
     const PaginationComponents = this.state.pages.map( page => (
@@ -100,4 +110,4 @@ class Search extends Component {
   }
 }
 
-export default connect( state => state, { getPeople, authenticated, searchPeople } )( Search );
+export default connect( state => state, { getPeople, authenticated, searchPeople, getFriends, addFriend, removeFriend } )( Search );

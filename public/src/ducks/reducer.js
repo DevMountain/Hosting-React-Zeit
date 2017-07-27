@@ -5,7 +5,8 @@ const initialState = {
   user: null,
   people: [],
   peopleCount: null,
-  pages: []
+  pages: [],
+  friends: []
 };
 
 const LOGOUT = "LOGOUT";
@@ -13,6 +14,9 @@ const AUTHENTICATED = "AUTHENTICATED";
 const PATCH_USER = "PATCH_USER";
 const GET_PEOPLE = "GET_PEOPLE";
 const SEARCH_PEOPLE = "SEARCH_PEOPLE";
+const GET_FRIENDS = "GET_FRIENDS";
+const ADD_FRIEND = "ADD_FRIEND";
+const REMOVE_FRIEND = "REMOVE_FRIEND";
 
 export default ( state = initialState, action ) => {
   // console.log('Action:', action);
@@ -38,6 +42,16 @@ export default ( state = initialState, action ) => {
     case SEARCH_PEOPLE + '_FULFILLED':
       console.log('Search completed:', payload);
       return Object.assign( {}, state, { people: payload.users, peopleCount: payload.count, pages: payload.availablePages });
+
+    case GET_FRIENDS + '_FULFILLED':
+      console.log('Found friends:', payload);
+      return Object.assign( {}, state, { friends: payload });
+
+    case ADD_FRIEND + '_FULFILLED':
+      return Object.assign({}, state, { friends: payload });
+
+    case REMOVE_FRIEND + '_FULFILLED':
+      return Object.assign({}, state, { friends: payload });
 
     default: return state;
   }
@@ -92,6 +106,33 @@ export function searchPeople( filter, name ) {
 
   return {
     type: SEARCH_PEOPLE,
+    payload: promise
+  };
+}
+
+export function getFriends( id ) {
+  const promise = axios.get( `${api.friendList}?id=${id}` ).then( response => response.data );
+
+  return {
+    type: GET_FRIENDS,
+    payload: promise
+  };
+}
+
+export function addFriend( user_id, friend_id ) {
+  const promise = axios.post( api.addFriend, { user_id, friend_id } ).then( response => response.data );
+
+  return {
+    type: ADD_FRIEND,
+    payload: promise
+  };
+}
+
+export function removeFriend( user_id, friend_id ) {
+  const promise = axios.post( api.removeFriend, { user_id, friend_id } ).then( response => response.data );
+
+  return {
+    type: REMOVE_FRIEND,
     payload: promise
   };
 }
