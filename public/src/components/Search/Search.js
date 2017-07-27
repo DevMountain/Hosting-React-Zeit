@@ -2,22 +2,34 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getPeople, authenticated } from '../../ducks/reducer';
 
+import User from './User/User';
+import Pagination from './Pagination/Pagination';
+
+import './Search.css';
+
 class Search extends Component {
   componentDidMount() {
-    const { getPeople, user, history, authenticated } = this.props;
+    const { getPeople, user, history, authenticated, match } = this.props;
+
     if ( user === null ) {
       authenticated( history );
     } else {
-      getPeople( user.id, 0 );
+      console.log('USER FOUND:', user);
+      getPeople( user.id, match.params.page );
     }
   }
 
   componentWillReceiveProps( nextProps ) {
-    const { getPeople, history } = this.props;
+    const { getPeople, history, match } = this.props;
+
     if ( nextProps.user !== null && this.props.user === null ) {
-      getPeople( nextProps.user.id, this.state.page );
+      getPeople( nextProps.user.id, match.params.page );
     } else if ( nextProps.user !== null && this.props.user !== null ) {
-      this.setState({ people: nextProps.people });
+      if ( match.params.page !== nextProps.match.params.page ) {
+        getPeople( nextProps.user.id, nextProps.match.params.page );
+      }
+
+      this.setState({ people: nextProps.people, pages: nextProps.pages });
     }
   }
 
@@ -26,8 +38,8 @@ class Search extends Component {
     this.state = {
       searchBy: 'first',
       name: '',
-      page: 0,
-      people: []
+      people: [],
+      pages: []
     };
 
     this.updateState = this.updateState.bind( this );
@@ -42,15 +54,35 @@ class Search extends Component {
   }
 
   render() {
-    console.log( 'STATE:', this.state );
+    const UserComponents = this.state.people.map( person => (
+      <User key={ person.id } id={ person.id } picture={ person.picture } first={ person.first } last={ person.last } />
+    ));
+
+    const PaginationComponents = this.state.pages.map( page => (
+      <Pagination key={ page } page={ page } />
+    ));
+
     return (
-      <div>
+      <div id="Search__container">
         <select value={ this.state.searchBy } onChange={ ( e ) => this.updateState( 'searchBy', e.target.value ) }>
           <option value="first"> First Name </option>
           <option value="last"> Last Name </option>
           <option value="full"> Full Name </option>
         </select>
         <input value={ this.state.name } onChange={ ( e ) => this.updateState( 'name', e.target.value ) } />
+        <br />
+        <br />
+        <br />
+        <div id="Search__users_container">
+          {
+            UserComponents
+          }
+        </div>
+        <div id="Search__pagination_container">
+          {
+            PaginationComponents
+          }
+        </div>
       </div>
     )
   }

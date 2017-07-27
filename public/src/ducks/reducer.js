@@ -3,7 +3,9 @@ import api from "../api";
 
 const initialState = {
   user: null,
-  people: []
+  people: [],
+  peopleCount: null,
+  pages: []
 };
 
 const LOGOUT = "LOGOUT";
@@ -12,24 +14,25 @@ const PATCH_USER = "PATCH_USER";
 const GET_PEOPLE = "GET_PEOPLE";
 
 export default ( state = initialState, action ) => {
-  console.log('Action:', action);
-  console.log('State', state);
+  // console.log('Action:', action);
+  // console.log('State', state);
 
   const { payload, type } = action;
 
   switch( type ) {
     case LOGOUT + '_FULFILLED': 
-      return Object.assign( {}, this.state, { user: null } );
+      return Object.assign( {}, state, { user: null } );
 
     case AUTHENTICATED + '_FULFILLED':
-      return Object.assign( {}, this.state, { user: payload } );
+      console.log('USER AUTHENTICATED:', payload);
+      return Object.assign( {}, state, { user: payload } );
 
     case PATCH_USER + '_FULFILLED':
-      return Object.assign( {}, this.state, { user: payload } );
+      return Object.assign( {}, state, { user: payload } );
 
     case GET_PEOPLE + '_FULFILLED':
       console.log('Found people:', payload);
-      return Object.assign( {}, this.state, { people: payload });
+      return Object.assign( {}, state, { people: payload.users, peopleCount: payload.count, pages: payload.availablePages });
 
     default: return state;
   }
@@ -71,7 +74,7 @@ export function patchUser( obj ) {
 }
 
 export function getPeople( id, page ) {
-  const promise = axios.get( `${api.userList}?page=${page}`, id ).then( response => response.data );
+  const promise = axios.get( `${api.userList}?page=${page}&id=${id}` ).then( response => response.data );
 
   return {
     type: GET_PEOPLE,

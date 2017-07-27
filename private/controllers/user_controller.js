@@ -26,12 +26,27 @@ module.exports = {
     }).catch( err => console.log(err) );
   },
 
-  find: ( req, res, next ) => {
+  list: ( req, res, next ) => {
     const db = req.app.get('db');
     const offset = req.query.page * 25;
-    const { id } = req.body;
+    const { id } = req.query;
 
-    db.users.find_users([ id, offset ]).then( users => res.status(200).send(users) )
-      .catch( err => console.log(err) );
+    db.users.count_users([ id ]).then( result => {
+      const count = result[0].count;
+      let temp = count > 25 ? Math.ceil( count / 25 ) : 1;
+      let availablePages = [];
+
+      for( var i = 0; i < temp; i++ ) {
+        availablePages.push( i.toString() );
+      }
+
+      db.users.find_users([ id, offset ]).then( users => res.status(200).send({ users, count, availablePages }) )
+        .catch( err => console.log(err) );
+    }).catch( err => console.log(err) );
+  },
+
+  search: ( req, res, next ) => {
+    const db = req.app.get('db');
+    
   }
 };

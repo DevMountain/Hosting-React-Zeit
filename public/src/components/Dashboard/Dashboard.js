@@ -24,7 +24,7 @@ class Dashboard extends Component {
       <div >
         Dashboard
         <User logout={ logout } history={ history } />
-        <Link to="/search">
+        <Link to="/search/0">
           Search for new friends
         </Link>
       </div>

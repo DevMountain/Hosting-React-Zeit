@@ -11,6 +11,6 @@ export default (
     <Route component={ Dashboard } path="/" exact />
     <Route component={ Auth } path="/auth" />
     <Route component={ Profile } path="/profile" />
-    <Route component={ Search } path="/search" />
+    <Route component={ Search } path="/search/:page" />
   </Switch>
 )
