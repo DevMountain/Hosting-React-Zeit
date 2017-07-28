@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker, { unregister } from './registerServiceWorker';
 import router from "./router";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -14,4 +14,5 @@ ReactDOM.render(
   </BrowserRouter>
 , document.getElementById('root'));
 
-registerServiceWorker();
+unregister();
+// registerServiceWorker();
