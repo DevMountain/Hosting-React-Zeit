@@ -7,5 +7,7 @@ module.exports = {
   searchUsers: '/api/user/search',
   friendList: '/api/friend/list',
   addFriend: '/api/friend/add',
-  removeFriend: '/api/friend/remove'
+  removeFriend: '/api/friend/remove',
+  recommended: '/api/recommended',
+  addRecommended: '/api/recommended/add'
 };

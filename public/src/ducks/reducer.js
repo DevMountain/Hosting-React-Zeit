@@ -6,7 +6,8 @@ const initialState = {
   people: [],
   peopleCount: null,
   pages: [],
-  friends: []
+  friends: [],
+  recommended: []
 };
 
 const LOGOUT = "LOGOUT";
@@ -17,10 +18,12 @@ const SEARCH_PEOPLE = "SEARCH_PEOPLE";
 const GET_FRIENDS = "GET_FRIENDS";
 const ADD_FRIEND = "ADD_FRIEND";
 const REMOVE_FRIEND = "REMOVE_FRIEND";
+const GET_RECOMMENDED = "GET_RECOMMENDED";
+const ADD_RECOMMENDED = "ADD_RECOMMENDED";
 
 export default ( state = initialState, action ) => {
-  // console.log('Action:', action);
-  // console.log('State', state);
+  console.log('Action:', action);
+  console.log('State', state);
 
   const { payload, type } = action;
 
@@ -52,6 +55,14 @@ export default ( state = initialState, action ) => {
 
     case REMOVE_FRIEND + '_FULFILLED':
       return Object.assign({}, state, { friends: payload });
+
+    case GET_RECOMMENDED + '_FULFILLED':
+      console.log('Got recommended people:', payload);
+      return Object.assign( {}, state, { recommended: payload });
+
+    case ADD_RECOMMENDED + '_FULFILLED':
+      console.log('Got recommended people:', payload);
+      return Object.assign( {}, state, { recommended: payload });
 
     default: return state;
   }
@@ -133,6 +144,24 @@ export function removeFriend( user_id, friend_id ) {
 
   return {
     type: REMOVE_FRIEND,
+    payload: promise
+  };
+}
+
+export function getRecommended( user, filter ) {
+  const promise = axios.post( api.recommended, { user, filter } ).then( response => response.data );
+
+  return {
+    type: GET_RECOMMENDED,
+    payload: promise
+  };
+}
+
+export function addRecommended( user, filter, friend_id ) {
+  const promise = axios.post( api.addRecommended, { user, filter, friend_id } ).then( response => response.data );
+
+  return { 
+    type: ADD_RECOMMENDED,
     payload: promise
   };
 }
