@@ -5,7 +5,7 @@ import './User.css';
 export default function User({ person_id, user_id, first, last, picture, friended, add, remove }) {
   return (
     <div id="Search__user">
-      <img src={ picture } />
+      <img src={ picture } alt="profile" />
       <p>{ first } { last }</p>
       {
         friended

@@ -7,7 +7,7 @@ export default class Recommended extends Component {
     const { logged_in_user, recommended_user, filter, add } = this.props;
     return (
       <div id="Recommended__user_container">
-        <img src={ recommended_user.picture } width="100px" />
+        <img src={ recommended_user.picture } width="100px" alt="profile" />
         <br />
         { recommended_user.first } { recommended_user.last }
         <br />

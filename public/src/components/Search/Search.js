@@ -15,14 +15,13 @@ class Search extends Component {
     if ( user === null ) {
       authenticated( history );
     } else {
-      console.log('USER FOUND:', user);
       getPeople( user.id, match.params.page );
       getFriends( user.id );
     }
   }
 
   componentWillReceiveProps( nextProps ) {
-    const { getPeople, history, match, getFriends } = this.props;
+    const { getPeople, match, getFriends } = this.props;
 
     if ( nextProps.user !== null && this.props.user === null ) {
       getPeople( nextProps.user.id, match.params.page );

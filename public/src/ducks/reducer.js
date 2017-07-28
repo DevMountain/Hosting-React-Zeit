@@ -22,8 +22,8 @@ const GET_RECOMMENDED = "GET_RECOMMENDED";
 const ADD_RECOMMENDED = "ADD_RECOMMENDED";
 
 export default ( state = initialState, action ) => {
-  console.log('Action:', action);
-  console.log('State', state);
+  // console.log('Action:', action);
+  // console.log('State', state);
 
   const { payload, type } = action;
 
@@ -32,22 +32,22 @@ export default ( state = initialState, action ) => {
       return Object.assign( {}, state, { user: null } );
 
     case AUTHENTICATED + '_FULFILLED':
-      console.log('USER AUTHENTICATED:', payload);
+      // console.log('USER AUTHENTICATED:', payload);
       return Object.assign( {}, state, { user: payload } );
 
     case PATCH_USER + '_FULFILLED':
       return Object.assign( {}, state, { user: payload } );
 
     case GET_PEOPLE + '_FULFILLED':
-      console.log('Found people:', payload);
+      // console.log('Found people:', payload);
       return Object.assign( {}, state, { people: payload.users, peopleCount: payload.count, pages: payload.availablePages });
 
     case SEARCH_PEOPLE + '_FULFILLED':
-      console.log('Search completed:', payload);
+      // console.log('Search completed:', payload);
       return Object.assign( {}, state, { people: payload.users, peopleCount: payload.count, pages: payload.availablePages });
 
     case GET_FRIENDS + '_FULFILLED':
-      console.log('Found friends:', payload);
+      // console.log('Found friends:', payload);
       return Object.assign( {}, state, { friends: payload });
 
     case ADD_FRIEND + '_FULFILLED':
@@ -57,11 +57,11 @@ export default ( state = initialState, action ) => {
       return Object.assign({}, state, { friends: payload });
 
     case GET_RECOMMENDED + '_FULFILLED':
-      console.log('Got recommended people:', payload);
+      // console.log('Got recommended people:', payload);
       return Object.assign( {}, state, { recommended: payload });
 
     case ADD_RECOMMENDED + '_FULFILLED':
-      console.log('Got recommended people:', payload);
+      // console.log('Got recommended people:', payload);
       return Object.assign( {}, state, { recommended: payload });
 
     default: return state;
