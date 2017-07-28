@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getPeople, authenticated, searchPeople, getFriends, addFriend, removeFriend } from '../../ducks/reducer';
+import { Link } from "react-router-dom";
 
 import User from './User/User';
 import Pagination from './Pagination/Pagination';
@@ -96,6 +97,9 @@ class Search extends Component {
         <input value={ this.state.name } onChange={ ( e ) => this.updateState( 'name', e.target.value ) } />
         <button onClick={ this.search }> Search </button>
         <button onClick={ this.reset }> Reset </button>
+        <Link to="/">
+          <button> Back to Dashboard </button>
+        </Link>  
         <br />
         <br />
         <br />

@@ -19,11 +19,11 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { logout, history } = this.props;
+    const { logout, history, user } = this.props;
     return (
       <div >
         Dashboard
-        <User logout={ logout } history={ history } />
+        <User logout={ logout } history={ history } user={ user } />
         <Link to="/search/0">
           Search for new friends
         </Link>

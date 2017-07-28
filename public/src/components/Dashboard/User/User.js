@@ -1,12 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function User( { logout, history } ) {
+export default function User( { logout, history, user } ) {
   return (
     <div>
       <Link to="/profile">
         <div>
-          User Icon Here | User Name Here
+          {
+            user
+            ?
+              <span>User Icon Here | { user.first } { user.last }</span>
+            :
+              null
+          }
         </div>
       </Link>
 
