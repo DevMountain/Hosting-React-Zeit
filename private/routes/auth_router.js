@@ -9,10 +9,6 @@ router.get('/login', passport.authenticate('auth0', {
   failureFlash: true 
 }));
 
-// router.get('/login', ( req, res,next ) => {
-//   console.log('hit');
-// });
-
 router.get('/setUser', authController.setUser);
 router.get('/authenticated', authController.sendUserToClient);
 router.post('/logout', authController.logout);

@@ -14,5 +14,11 @@ ReactDOM.render(
   </BrowserRouter>
 , document.getElementById('root'));
 
-unregister();
-// registerServiceWorker();
+if ( process.env.NODE_ENV === "development" ) {
+  console.log("In Development Mode: Enabling React's ServiceWorker");
+  unregister();
+  registerServiceWorker();
+} else {
+  console.log("Not in Development Mode: Unregistering from React's ServiceWorker");
+  unregister();
+}

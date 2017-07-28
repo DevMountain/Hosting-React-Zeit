@@ -42,12 +42,6 @@ passport.deserializeUser( (obj, done) => {
   });
 });
 
-// Debug Auth0 in Production
-app.use( ( req, res, next ) => {
-  console.log( req.method, req.url );
-  next();
-});
-
 // Routes
 app.use(`/api/auth`, require(`${__dirname}/routes/auth_router.js`));
 app.use(`/api/user`, require(`${__dirname}/routes/user_router.js`));
