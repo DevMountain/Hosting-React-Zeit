@@ -9,7 +9,7 @@ module.exports = {
     if ( process.env.ENV === "development" ) {
       res.redirect('http://localhost:3001/auth');
     } else if ( process.env.ENV === "production" ) {
-      res.redirect('http://localhost:3000/auth')
+      res.redirect('http://localhost:3000/auth');
     } else {
       res.status(500).send(`The API wasn't started in development or production mode. Please refer to the documentation in the README.`);
     }

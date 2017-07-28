@@ -8,6 +8,8 @@ const strategy = require(`${__dirname}/strategy.js`);
 
 const app = express();
 
+app.use( express.static( `${__dirname}/../public/build` ) );
+
 massive( config.connectionString ).then( dbInstance => {
   app.set('db', dbInstance);
 }).catch( err => console.log('Error on connecting to database:', err) );
@@ -38,6 +40,12 @@ passport.deserializeUser( (obj, done) => {
       });
     }
   });
+});
+
+// Debug Auth0 in Production
+app.use( ( req, res, next ) => {
+  console.log( req.method, req.url );
+  next();
 });
 
 // Routes
