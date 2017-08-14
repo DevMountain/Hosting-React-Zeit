@@ -2,14 +2,15 @@ const passport = require('passport');
 
 module.exports = {
   setUser: ( req, res, next ) => {
+    console.log("Yoyoyo", req.user);
     if ( req.user && !req.session.user ) {
       req.session.user = req.user;
     }
 
-    if ( process.env.ENV === "development" ) {
-      res.redirect('http://localhost:3001/auth');
-    } else if ( process.env.ENV === "production" ) {
-      res.redirect('http://localhost:3000/auth');
+    if ( process.env.NODE_ENV === "development" ) {
+      res.redirect('http://localhost:3000/');
+    } else if ( process.env.NODE_ENV === "production" ) {
+      res.redirect('/');
     } else {
       res.status(500).send(`The API wasn't started in development or production mode. Please refer to the documentation in the README.`);
     }

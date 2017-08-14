@@ -1,16 +1,17 @@
+require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const massive = require('massive');
-const config = require(`${__dirname}/config.js`);
 const passport = require('passport');
-const strategy = require(`${__dirname}/strategy.js`);
+const strategy = require(`./strategy.js`);
 
 const app = express();
 
-app.use( express.static( `${__dirname}/../public/build` ) );
+app.use( express.static( `./../build` ) );
+app.use((req, res, next)=>{console.log(req.url); next()});
 
-massive( config.connectionString ).then( dbInstance => {
+massive( process.env.CONNECTION_STRING ).then( dbInstance => {
   app.set('db', dbInstance);
 }).catch( err => console.log('Error on connecting to database:', err) );
 
@@ -27,9 +28,11 @@ passport.use( strategy );
 
 passport.serializeUser( (user, done) => done(null, { id: user.id, picture: user.picture }) );
 passport.deserializeUser( (obj, done) => {
+  console.log("obj", obj);
   const db = app.get('db');
 
   db.users.find_user([ obj.id ]).then( response => {
+    console.log(response);
     if ( response.length === 1 ) {
       // User is in the database
       done(null, response[0]);
@@ -48,6 +51,9 @@ app.use(`/api/user`, require(`${__dirname}/routes/user_router.js`));
 app.use(`/api/friend`, require(`${__dirname}/routes/friend_router.js`));
 app.use(`/api/recommended`, require(`${__dirname}/routes/recommended_router.js`));
 
-const port = 3000;
-app.listen( port, () => { console.log(`Server listening on port 3000.\nMode: ${process.env.ENV}`); } );
+app.get('*', (req, res)=>{
+  res.sendFile(`${__dirname}/../public/build/index.html`)
+})
 
+const port = 3030;
+app.listen( port, () => { console.log(`Server listening on port 3030.\nMode: ${process.env.NODE_ENV}`); } );

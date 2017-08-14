@@ -2,6 +2,10 @@
 
 config.js
 
+.env
+.env.prod
+
+build
 
 # dependencies
 node_modules

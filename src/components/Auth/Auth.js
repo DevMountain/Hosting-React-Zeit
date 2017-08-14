@@ -17,7 +17,8 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <a href={ `http://localhost:3000${api.login}` }>Login/Register</a>
+        This is a test {process.env.DOMAIN}
+        <a href={ process.env.REACT_APP_LOGIN }>Login/Register { process.env.REACT_APP_LOGIN } { process.env.REACT_APP_LOGOUT }</a>
       </div>
     )
   }
