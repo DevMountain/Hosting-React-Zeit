@@ -5,10 +5,11 @@ const bodyParser = require('body-parser');
 const massive = require('massive');
 const passport = require('passport');
 const strategy = require(`./strategy.js`);
+const path = require('path');
 
 const app = express();
 
-app.use( express.static( `./../build` ) );
+app.use( express.static( `${__dirname}/../build` ) );
 app.use((req, res, next)=>{console.log(req.url); next()});
 
 massive( process.env.CONNECTION_STRING ).then( dbInstance => {
@@ -52,7 +53,8 @@ app.use(`/api/friend`, require(`${__dirname}/routes/friend_router.js`));
 app.use(`/api/recommended`, require(`${__dirname}/routes/recommended_router.js`));
 
 app.get('*', (req, res)=>{
-  res.sendFile(`${__dirname}/../public/build/index.html`)
+  console.log("None Met");
+  res.sendFile(path.join(__dirname, '..','build','index.html'));
 })
 
 const port = 3030;
