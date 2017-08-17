@@ -1,6 +1,6 @@
-### Deploying a Single Page React App On ZEIT.co
+## Deploying a Single Page React App On ZEIT.co
 
-## Make sure your server is setup to run off the build process
+### Make sure your server is setup to run off the build process
 
 Tell create-react-app to use webpack to create a build folder with your latest code.
 
@@ -20,6 +20,8 @@ app.use( express.static( `${__dirname}/../build` ) );
 ```
 
 If you are using browser history, you'll need this to make sure your index.html file is being given on the other routes.
+
+Towards the *end* of your server file make sure you have this (this needs to run after you've setup all your other endpoints)
 
 ```
 const path = require('path')
