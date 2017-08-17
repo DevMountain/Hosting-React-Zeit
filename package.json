@@ -28,11 +28,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "dev": "react-scripts start",
     "deploy": "now --public --dotenv=.env.prod -d"
   },
   "now":{
-    "alias":"stage-bracks-bot-friends"
+    "alias":"bracks-bot-friends"
   },
   "proxy": "http://localhost:3030"
 }
