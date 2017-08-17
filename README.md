@@ -10,11 +10,26 @@ Make sure your dev server isn't running for the front end.  Start your backend s
 
 `nodemon`
 
-In your browser, check that you can go to h http://localhost:3030 (or whichever port you told your backend to run on.) And make sure that you are sending the files to the front end.
+In your browser, check that you can go to http://localhost:3030 (or whichever port you told your backend to run on.) And make sure that you are sending the files to the front end.
+
+
+Make sure your express.static is pointing to the build folder.
+
+```
+app.use( express.static( `${__dirname}/../build` ) );
+```
+
+If you are using browser history, you'll need this to make sure your index.html file is being given on the other routes.
+
+```
+const path = require('path')
+app.get('*', (req, res)=>{
+  res.sendFile(path.join(__dirname, '..','build','index.html'));
+})
+```
+Check that your project is working.
 
 If it is not.  Check your DevTools console, as well as the server terminal output to figure out what is going wrong.  
-
-Trying to host before this is working is rather a difficult prospect.
 
 ## Ensure you've setup a .env file, and set node to use it for your project.
 
@@ -34,7 +49,8 @@ DOMAIN="brack.auth0.com"
 ID="46NxlCzM0XDE7T2upOn2jlgvoS"
 SECRET="0xbTbFK2y3DIMp2TdOgK1MKQ2vH2WRg2rv6jVrMhSX0T39e5_Kd4lmsFz"
 CONNECTION_STRING="postgres://vuigx:k8Io23cePdUorndJAB2ijk_u0r4@stampy.db.elephantsql.com:5432/vuigx"
-NODE_ENV=development```
+NODE_ENV=development
+```
 
 Copy your `.env` file and rename it `.env.prod` Change any values that you need to change (The REACT_APP_LOGIN info will certainly need to change, depending on your project you may or may not want to change the DB, and if you've used something with stripe that needs a real key outside of development then that would change as well.)
 
