@@ -1,6 +1,22 @@
 ## Deploying a Single Page React App On ZEIT.co
 
+We will be going over how to use ZEIT.it to deploy our applications.  ZEIT is a hosting service that provides us with a command line interface (cli) that we will use to manage our deployments.  Much like we use git to manage our repository histroy.
+
+## Globablly Install ZEIT's deployment CLI called now
+
+`npm i -g now`
+
+## Login to ZEIT
+
+`now login`  
+
+It'll ask for your email.  Then send a verification email to the address provided.  This will also create an account if you don't have one.
+
 ### Make sure your server is setup to run off the build process
+
+Before we want to deploy our project, we should make sure that our project is working on our local machine.  If it's not working, open you dev console, look at your terminal output.  And try to figure out what is causing it to break locally.
+
+Up till now we have been using the React Dev Server to serve our react app.  We are going to update this so that it will use a production build of our project.  This will do things such as removing extra white-space, comments, and minify our code so that it's as fast to download as possible.  
 
 Tell create-react-app to use webpack to create a build folder with your latest code.
 
@@ -79,15 +95,7 @@ If you did not have this already in your project, you will need to install doten
 
 Double check that your server is still working with this new configuration setting.
 
-## Globablly Install ZEIT's deployment CLI called now
 
-`npm i -g now`
-
-## Login to ZEIT
-
-`now login`  
-
-It'll ask for your email.  Then send a verification email to the address provided.  This creates your account.
 
 # Modify our package.json
 

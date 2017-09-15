@@ -31,7 +31,7 @@
     "deploy": "now --public --dotenv=.env.prod -d"
   },
   "now":{
-    "alias":"bracks-bot-friends"
+    "alias":"bracks-robot-friends"
   },
   "proxy": "http://localhost:3030"
 }
