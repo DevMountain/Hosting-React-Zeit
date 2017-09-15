@@ -136,4 +136,4 @@ If we run `now alias` it will apply the alias we setup in our package.json.
 
 ## Making changes
 
-ZEIT does not let you edit a server once it is created.  So how do we make changes to our project?  Well, make the desired changes to your code.  Run `rpm run deploy`.  After it's created the server, go to the address that they've provided, make sure that it is working as you expect, then run `now alias` It will change where your server is pointing.  So all new traffic will go to the new server.
+ZEIT does not let you edit a server once it is created.  So how do we make changes to our project?  Well, make the desired changes to your code.  Run `npm run deploy`.  After it's created the server, go to the address that they've provided, make sure that it is working as you expect, then run `now alias` It will change where your server is pointing.  So all new traffic will go to the new server.
