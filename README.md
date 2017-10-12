@@ -148,6 +148,20 @@ We should now be able to do `npm run deploy`.  And it will upload our project to
 
 If we run `now alias` it will apply the alias we setup in our package.json.
 
+## Managing ZEIT instances.
+
+You can only have 3 instances running at once on the free tier of ZEIT.  They will fall aslep automatically after 3-5 hours. But when you go to deploy you may need to terminate some of your deployments.  The command `now ls` will list out the instances that are running on your account.  
+```
+ url                                          inst #    state                 age
+ bracks-bot-friends-jvcagclcqa.now.sh              0    READY                 14d
+ bracks-bot-friends-hhentmkpty.now.sh              0    FROZEN                27d
+ bracks-bot-friends-arjdfpbxgk.now.sh              0    FROZEN                27d
+ bracks-bot-friends-xmjqiajpmb.now.sh              0    FROZEN                27d
+ bracks-bot-friends-kdwehzgvxp.now.sh              0    FROZEN                27d
+ ```
+ 
+ You can remove an instance to free up another instance by running `now rm bracks-bot-friends-jvcagclcqa.now.sh` where you use the url provided by the now ls command.
+
 ## Making changes
 
 ZEIT does not let you edit a server once it is created.  So how do we make changes to our project?  Well, make the desired changes to your code.  Run `npm run deploy`.  After it's created the server, go to the address that they've provided, make sure that it is working as you expect, then run `now alias` It will change where your server is pointing.  So all new traffic will go to the new server.
