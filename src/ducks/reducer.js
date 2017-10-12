@@ -28,7 +28,7 @@ export default ( state = initialState, action ) => {
   const { payload, type } = action;
 
   switch( type ) {
-    case LOGOUT + '_FULFILLED': 
+    case LOGOUT + '_FULFILLED':
       return Object.assign( {}, state, { user: null } );
 
     case AUTHENTICATED + '_FULFILLED':
@@ -95,7 +95,7 @@ export function authenticated( history, optionalSuccessRedirect ) {
 }
 
 export function patchUser( obj ) {
-  const promise = axios.post( `${api.patchUser}/${obj.id}`, obj ).then( response => response.data );
+  const promise = axios.post( `/api/user/patch/${obj.id}`, obj ).then( response => response.data );
 
   return {
     type: PATCH_USER,
@@ -104,7 +104,7 @@ export function patchUser( obj ) {
 }
 
 export function getPeople( id, page ) {
-  const promise = axios.get( `${api.userList}?page=${page}&id=${id}` ).then( response => response.data );
+  const promise = axios.get( `/api/user/list?page=${page}&id=${id}` ).then( response => response.data );
 
   return {
     type: GET_PEOPLE,
@@ -113,7 +113,7 @@ export function getPeople( id, page ) {
 }
 
 export function searchPeople( filter, name ) {
-  const promise = axios.get( `${api.searchUsers}?filter=${filter}&name=${name}` ).then( response => response.data );
+  const promise = axios.get( `/api/user/search?filter=${filter}&name=${name}` ).then( response => response.data );
 
   return {
     type: SEARCH_PEOPLE,
@@ -122,7 +122,7 @@ export function searchPeople( filter, name ) {
 }
 
 export function getFriends( id ) {
-  const promise = axios.get( `${api.friendList}?id=${id}` ).then( response => response.data );
+  const promise = axios.get( `/api/friend/list?id=${id}` ).then( response => response.data );
 
   return {
     type: GET_FRIENDS,
@@ -160,7 +160,7 @@ export function getRecommended( user, filter ) {
 export function addRecommended( user, filter, friend_id ) {
   const promise = axios.post( api.addRecommended, { user, filter, friend_id } ).then( response => response.data );
 
-  return { 
+  return {
     type: ADD_RECOMMENDED,
     payload: promise
   };
