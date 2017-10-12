@@ -66,6 +66,9 @@ REACT_APP_LOGOUT="http://localhost:3030/api/auth/logout"
 DOMAIN="brack.auth0.com"
 ID="46NxlCzM0XDE7T2upOn2jlgvoS"
 SECRET="0xbTbFK2y3DIMp2TdOgK1MKQ2vH2WRg2rv6jVrMhSX0T39e5_Kd4lmsFz"
+SUCCESS_REDIRECT="http://localhost:3030/"
+FAILURE_REDIRECT="http://localhost:3030/api/auth/login"
+
 CONNECTION_STRING="postgres://vuigx:k8Io23cePdUorndJAB2ijk_u0r4@stampy.db.elephantsql.com:5432/vuigx"
 NODE_ENV=development
 ```
@@ -80,6 +83,9 @@ REACT_APP_LOGOUT="/api/auth/logout"
 DOMAIN="brack.auth0.com"
 ID="7yq4hbufvtq32uirf7v4w"
 SECRET="aszxvuigvagsfbawroyzx8gvaiger8xtv87gsfxzv"
+SUCCESS_REDIRECT="/"
+FAILURE_REDIRECT="/api/auth/login"
+
 CONNECTION_STRING="postgres://sdfsdrtfg:98yhuisdfiybriuhfg@stampy.db.elephantsql.com:5432/sdfsdrtfg"
 NODE_ENV=production
 ```
