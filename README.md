@@ -42,7 +42,7 @@ Towards the *end* of your server file make sure you have this (this needs to run
 ```
 const path = require('path')
 app.get('*', (req, res)=>{
-  res.sendFile(path.join(__dirname, '..','build','index.html'));
+  res.sendFile(path.join(__dirname, '../build/index.html'));
 })
 ```
 Check that your project is working.
