@@ -27,9 +27,12 @@ app.use( passport.initialize() );
 app.use( passport.session() );
 passport.use( strategy );
 
-passport.serializeUser( (user, done) => done(null, { id: user.id, picture: user.picture }) );
+passport.serializeUser( (user, done) => {
+  console.log("serializeUser:-------------------")
+  done(null, { id: user.id, picture: user.picture })
+});
 passport.deserializeUser( (obj, done) => {
-  console.log("obj", obj);
+  console.log("deserializeUser:-------------------")
   const db = app.get('db');
 
   db.users.find_user([ obj.id ]).then( response => {
